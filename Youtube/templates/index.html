@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Trailer Sentiment Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css"> <!-- Link to CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"> <!-- Optional: Google Font -->
+</head>
+<body>
+    <div class="container">
+        <!-- ✅ Image at top of container -->
+        <img src="{{ url_for('static', filename='download.jpg') }}" alt="Trailer" width="400">
+
+        <h1>Welcome to Cube AI Solution</h1>
+        <h1>YouTube Trailer Sentiment Analyzer</h1>
+
+        <form method="POST">
+            <input type="text" name="url" placeholder="Paste YouTube Video URL" required>
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if summary %}
+            <h2>Sentiment Summary</h2>
+            <ul>
+                {% for sentiment, count in summary.items() %}
+                    <li><strong>{{ sentiment }}:</strong> {{ count }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Comment Sentiments</h2>
+            <table>
+                <thead>
+                    <tr><th>Comment</th><th>Sentiment</th></tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row.Comment }}</td>
+                            <td>{{ row.Sentiment }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
